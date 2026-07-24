@@ -1,9 +1,10 @@
 'use client';
 
 import { updateStudentProfile } from '@/app/actions/student';
-import { FileText, Save, Plus, X, GraduationCap, Award, BookOpen } from 'lucide-react';
+import { FileText, Save, Plus, X, GraduationCap } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export default function StudentProfilePage() {
   const [loading, setLoading] = useState(false);
@@ -48,51 +49,41 @@ export default function StudentProfilePage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          <GraduationCap className="w-6 h-6 text-indigo-400" />
-          <span>Academic Profile & Resume</span>
-        </h1>
-        <p className="text-xs text-slate-400">
-          Ensure your CGPA, active backlogs, and resume URL are up to date for server eligibility verification.
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto space-y-8">
+      <PageHeader
+        title="Academic Profile & Resume"
+        description="Ensure your CGPA, active backlogs, branch, and PDF resume URL are accurate for automated eligibility validation."
+      />
 
-      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6">
+      <div className="card-enterprise">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Full Name</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Full Name</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 defaultValue="Alex Morgan"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
+                className="input-enterprise"
               />
             </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Roll Number</label>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Roll Number</label>
               <input
                 type="text"
                 name="rollNumber"
                 required
                 defaultValue="CS2026-042"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
+                className="input-enterprise"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Branch</label>
-              <select
-                name="branch"
-                required
-                defaultValue="CSE"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
-              >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Branch</label>
+              <select name="branch" required defaultValue="CSE" className="input-enterprise">
                 <option value="CSE">CSE</option>
                 <option value="IT">IT</option>
                 <option value="ECE">ECE</option>
@@ -102,8 +93,8 @@ export default function StudentProfilePage() {
               </select>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Cumulative CGPA (0.0 - 10.0)</label>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">CGPA (0.0 - 10.0)</label>
               <input
                 type="number"
                 step="0.01"
@@ -112,61 +103,61 @@ export default function StudentProfilePage() {
                 name="cgpa"
                 required
                 defaultValue="8.85"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 font-semibold text-indigo-400"
+                className="input-enterprise font-bold text-[#EAB308]"
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Active Backlogs</label>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Active Backlogs</label>
               <input
                 type="number"
                 min="0"
                 name="backlogs"
                 required
                 defaultValue="0"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 font-semibold"
+                className="input-enterprise"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Graduation Year</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Graduation Year</label>
               <input
                 type="number"
                 name="graduationYear"
                 required
                 defaultValue="2026"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
+                className="input-enterprise"
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Resume PDF Document URL</label>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Resume PDF URL</label>
               <input
                 type="url"
                 name="resumeUrl"
                 placeholder="https://drive.google.com/your-resume.pdf"
                 defaultValue="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-indigo-500"
+                className="input-enterprise"
               />
             </div>
           </div>
 
           {/* Skills Management */}
-          <div className="space-y-2 pt-2 border-t border-slate-800">
-            <label className="text-xs font-medium text-slate-300">Technical Skills & Expertise</label>
+          <div className="space-y-3 pt-4 border-t border-[#E5E7EB]">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Technical Skills Tags</label>
             <div className="flex flex-wrap gap-2 mb-2">
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-500/10 text-indigo-300 text-xs font-medium border border-indigo-500/30"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#FEF9C3] text-[#D97706] text-xs font-bold border border-[#FDE047]"
                 >
                   {skill}
                   <button
                     type="button"
                     onClick={() => removeSkill(skill)}
-                    className="hover:text-rose-400 text-indigo-400"
+                    className="hover:text-rose-600 text-[#D97706]"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -174,18 +165,18 @@ export default function StudentProfilePage() {
               ))}
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <input
                 type="text"
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
-                placeholder="Add skill (e.g., Python, Docker)"
-                className="flex-1 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
+                placeholder="Add skill tag (e.g., Python, Docker)"
+                className="input-enterprise flex-1 text-xs"
               />
               <button
                 type="button"
                 onClick={addSkill}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center gap-1"
+                className="btn-secondary-white text-xs h-[46px] flex items-center gap-1"
               >
                 <Plus className="w-4 h-4" />
                 Add Tag
@@ -196,10 +187,10 @@ export default function StudentProfilePage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2"
+            className="btn-golden w-full flex items-center justify-center gap-2 h-12 text-sm"
           >
             <Save className="w-4 h-4" />
-            <span>{loading ? 'Saving Profile...' : 'Save Academic Profile'}</span>
+            <span>{loading ? 'SAVING PROFILE...' : 'SAVE ACADEMIC PROFILE'}</span>
           </button>
         </form>
       </div>

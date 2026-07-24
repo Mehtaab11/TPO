@@ -1,10 +1,11 @@
 'use client';
 
 import { createJobPosting } from '@/app/actions/jobs';
-import { Briefcase, Plus, Calendar, DollarSign, BookOpen, AlertCircle } from 'lucide-react';
+import { Briefcase, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export default function NewJobPostingPage() {
   const router = useRouter();
@@ -46,57 +47,52 @@ export default function NewJobPostingPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          <Plus className="w-6 h-6 text-emerald-400" />
-          <span>Post New Campus Placement Drive</span>
-        </h1>
-        <p className="text-xs text-slate-400">
-          Define job requirements, CTC offer package, CGPA criteria, max backlog limit, allowed branches, and application deadline.
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto space-y-8">
+      <PageHeader
+        title="Post New Campus Placement Drive"
+        description="Define job requirements, offered CTC package, CGPA cutoffs, backlog limit, allowed branches, and application deadline."
+      />
 
-      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6">
+      <div className="card-enterprise">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-1.5">
-            <label className="text-xs font-medium text-slate-300">Job Title / Designation</label>
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Job Title / Role</label>
             <input
               type="text"
               name="title"
               required
-              placeholder="e.g. Software Development Engineer (SDE-1)"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500"
+              placeholder="e.g. Software Engineer (SDE-1)"
+              className="input-enterprise"
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Offered CTC Package (Salary)</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Offered CTC Package</label>
               <input
                 type="text"
                 name="ctc"
                 required
-                placeholder="e.g. 18.5 LPA or $85,000"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500 font-semibold text-emerald-400"
+                placeholder="e.g. 18.5 LPA"
+                className="input-enterprise font-bold text-[#EAB308]"
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Application Deadline</label>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Application Deadline</label>
               <input
                 type="date"
                 name="deadline"
                 required
                 defaultValue={new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500"
+                className="input-enterprise"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Minimum Cutoff CGPA</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Minimum Cutoff CGPA</label>
               <input
                 type="number"
                 step="0.1"
@@ -105,26 +101,26 @@ export default function NewJobPostingPage() {
                 name="minCgpa"
                 required
                 defaultValue="7.5"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500"
+                className="input-enterprise"
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300">Maximum Allowed Active Backlogs</label>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Maximum Allowed Backlogs</label>
               <input
                 type="number"
                 min="0"
                 name="maxBacklogs"
                 required
                 defaultValue="0"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500"
+                className="input-enterprise"
               />
             </div>
           </div>
 
           {/* Branch Checkboxes */}
           <div className="space-y-2">
-            <label className="text-xs font-medium text-slate-300">Eligible Academic Branches</label>
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Eligible Academic Branches</label>
             <div className="flex flex-wrap gap-2">
               {['ALL', 'CSE', 'IT', 'ECE', 'EEE', 'MECH', 'CIVIL'].map((b) => {
                 const isSelected = branches.includes(b);
@@ -133,10 +129,10 @@ export default function NewJobPostingPage() {
                     type="button"
                     key={b}
                     onClick={() => toggleBranch(b)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                       isSelected
-                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm'
-                        : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-white'
+                        ? 'bg-[#EAB308] text-[#111827] border-[#EAB308] shadow-sm'
+                        : 'bg-white text-[#6B7280] border-[#E5E7EB] hover:bg-[#F8FAFC]'
                     }`}
                   >
                     {b} {isSelected ? '✓' : ''}
@@ -146,24 +142,24 @@ export default function NewJobPostingPage() {
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-medium text-slate-300">Job Description & Responsibilities</label>
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Job Description & Requirements</label>
             <textarea
               name="description"
               rows={4}
               required
-              placeholder="Describe candidate responsibilities, required skills, tech stack, and interview process details..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500 leading-relaxed"
+              placeholder="Describe candidate responsibilities, required technical skills, and interview process..."
+              className="w-full p-4 rounded-xl border border-[#E5E7EB] bg-white text-sm text-[#111827] focus:border-[#EAB308] focus:ring-2 focus:ring-[#EAB308]/20 transition-all outline-none"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-sm shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2"
+            className="btn-golden w-full flex items-center justify-center gap-2 h-12 text-sm"
           >
             <Briefcase className="w-4 h-4" />
-            <span>{loading ? 'Publishing Drive...' : 'Publish Campus Placement Drive'}</span>
+            <span>{loading ? 'PUBLISHING DRIVE...' : 'PUBLISH CAMPUS PLACEMENT DRIVE'}</span>
           </button>
         </form>
       </div>
