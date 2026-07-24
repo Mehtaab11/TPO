@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  RECRUITER
+}
+
+enum DriveStatus {
+  UPCOMING
+  OPEN
+  CLOSED
+  COMPLETED
+}
+
+enum ApplicationStatus {
+  APPLIED
+  SHORTLISTED
+  INTERVIEW_SCHEDULED
+  SELECTED
+  REJECTED
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  password       String
+  role           Role            @default(STUDENT)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  studentProfile StudentProfile?
+  companyProfile CompanyProfile?
+}
+
+model StudentProfile {
+  id             String        @id @default(cuid())
+  userId         String        @unique
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName       String
+  rollNumber     String        @unique
+  branch         String
+  cgpa           Float
+  backlogs       Int           @default(0)
+  graduationYear Int
+  resumeUrl      String?
+  skills         String[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  applications   Application[]
+}
+
+model CompanyProfile {
+  id          String       @id @default(cuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String
+  website     String
+  industry    String
+  description String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  jobPostings JobPosting[]
+}
+
+model JobPosting {
+  id              String        @id @default(cuid())
+  companyId       String
+  company         CompanyProfile @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  title           String
+  description     String
+  ctc             String
+  minCgpa         Float
+  maxBacklogs     Int
+  allowedBranches String[]
+  deadline        DateTime
+  status          DriveStatus   @default(OPEN)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  applications    Application[]
+  interviews      Interview[]
+}
+
+model Application {
+  id        String            @id @default(cuid())
+  jobId     String
+  job       JobPosting        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  studentId String
+  student   StudentProfile    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  status    ApplicationStatus @default(APPLIED)
+  appliedAt DateTime          @default(now())
+
+  @@unique([jobId, studentId])
+}
+
+model Interview {
+  id          String     @id @default(cuid())
+  jobId       String
+  job         JobPosting @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  title       String
+  scheduledAt DateTime
+  location    String
+  notes       String?
+  createdAt   DateTime   @default(now())
+}
