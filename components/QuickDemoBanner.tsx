@@ -20,20 +20,20 @@ export function QuickDemoBanner({ currentRole }: { currentRole?: Role }) {
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-purple-950 border-b border-indigo-500/20 px-4 py-2 text-xs">
+    <div className="bg-mustard-light border-b border-mustard/20 px-4 py-2 text-xs relative z-30">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-indigo-300 font-medium">
-          <ShieldAlert className="w-4 h-4 text-indigo-400 animate-pulse" />
+        <div className="flex items-center gap-2 text-navy font-semibold">
+          <ShieldAlert className="w-4 h-4 text-mustard-hover animate-pulse" />
           <span>Interactive Demo Mode: Switch roles instantly with 1-click</span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={() => handleSwitch('STUDENT')}
             disabled={loadingRole === 'STUDENT'}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all font-medium ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all text-xs font-bold ${
               currentRole === 'STUDENT'
-                ? 'bg-blue-600 text-white shadow-sm ring-1 ring-blue-400'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-mustard text-white shadow-sm ring-2 ring-mustard-hover'
+                : 'bg-white text-navy hover:bg-slate-100 border border-slate-200'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
@@ -42,10 +42,10 @@ export function QuickDemoBanner({ currentRole }: { currentRole?: Role }) {
           <button
             onClick={() => handleSwitch('RECRUITER')}
             disabled={loadingRole === 'RECRUITER'}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all font-medium ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all text-xs font-bold ${
               currentRole === 'RECRUITER'
-                ? 'bg-emerald-600 text-white shadow-sm ring-1 ring-emerald-400'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-mustard text-white shadow-sm ring-2 ring-mustard-hover'
+                : 'bg-white text-navy hover:bg-slate-100 border border-slate-200'
             }`}
           >
             <Briefcase className="w-3.5 h-3.5" />
@@ -54,10 +54,10 @@ export function QuickDemoBanner({ currentRole }: { currentRole?: Role }) {
           <button
             onClick={() => handleSwitch('ADMIN')}
             disabled={loadingRole === 'ADMIN'}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md transition-all font-medium ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all text-xs font-bold ${
               currentRole === 'ADMIN'
-                ? 'bg-purple-600 text-white shadow-sm ring-1 ring-purple-400'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-mustard text-white shadow-sm ring-2 ring-mustard-hover'
+                : 'bg-white text-navy hover:bg-slate-100 border border-slate-200'
             }`}
           >
             <UserCheck className="w-3.5 h-3.5" />
