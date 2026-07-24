@@ -1,9 +1,23 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Playfair_Display, Poppins } from 'next/font/google';
 import { getSession } from '@/lib/auth';
 import { Navbar } from '@/components/Navbar';
 import { QuickDemoBanner } from '@/components/QuickDemoBanner';
 import { ToastProvider } from '@/components/ToastProvider';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Training & Placement Office (TPO) Portal',
@@ -18,8 +32,8 @@ export default async function RootLayout({
   const session = await getSession();
 
   return (
-    <html lang="en">
-      <body className="bg-white text-navy min-h-screen flex flex-col antialiased relative overflow-x-hidden">
+    <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
+      <body className="bg-white text-navy min-h-screen flex flex-col antialiased relative overflow-x-hidden font-sans">
         {/* Background Accent: Mustard Yellow Side Bar Decorations */}
         <div className="fixed top-24 left-0 w-6 h-1 bg-mustard rounded-r-full z-0 opacity-80" />
         <div className="fixed top-32 left-0 w-10 h-1 bg-mustard rounded-r-full z-0 opacity-80" />
